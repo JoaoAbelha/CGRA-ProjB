@@ -6,7 +6,6 @@
 class MyCubeMap extends CGFobject {
     constructor(scene) {
         super(scene);
-
         this.side = new MyQuadMap(scene);
         this.top = new MyQuadMap(scene);
         this.bottom = new MyQuadMap(scene);
