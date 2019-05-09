@@ -86,7 +86,7 @@ class MyBird extends CGFobject {
 
     moveBird() {
         //console.log(this.y);
-        this.scene.translate(this.x, 3+ this.y, this.z);
+        this.scene.translate(this.x, 3 + this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
         
     }
