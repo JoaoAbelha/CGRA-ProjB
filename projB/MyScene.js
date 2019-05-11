@@ -41,7 +41,7 @@ class MyScene extends CGFscene {
         this.plane = new Plane(this, 32);
         this.image = new MyCubeMap(this);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this,0,0,0,3,0);
+        this.bird = new MyBird(this,0,0,0,0,0);
         this.terrain = new MyTerrain(this);
 
         //Objects connected to MyInterface

@@ -14,8 +14,8 @@ uniform sampler2D terrainMap;
 void main() {
 
     vTextureCoord = aTextureCoord;
-    vec4 filter = texture2D(terrainMap, vec2(timeFactor*0.02, timeFactor*0.01)+vTextureCoord);
+    vec4 filter = texture2D(terrainMap, vTextureCoord);
   
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-    gl_Position.y += filter.b*7.0;
+    gl_Position.y += (filter.r + filter.g + filter.b) * 25.0;
 }
