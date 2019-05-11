@@ -10,18 +10,22 @@ class MyWings extends CGFobject {
         this.triangle = new MyTriangle(scene);
         this.coverts = new MySquare(scene);
         
-
         this.x = x;
         this.y = y;
         this.z = z;
+
+        this.rotationAngle = 0;
     }
 
-    animate(time) {
-        this.y = Math.sin(time) + 50;
+    //this formula needs some changes
+    animate(time, birdSpeed) {
+        this.rotationAngle = Math.sin(time * 0.5 + time * (Math.round(Math.abs(birdSpeed)*10) / 10) * 4) * 0.4;
     }
 
     display() {
+
         this.scene.pushMatrix();
+        this.scene.rotate(this.rotationAngle, 0, 0, 1);
         this.scene.translate(1,0.5,0);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(Math.PI / 6 ,0,1,0);
@@ -31,6 +35,7 @@ class MyWings extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+        this.scene.rotate(-this.rotationAngle, 0, 0, 1);
         this.scene.translate(-1,0.5,0);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI / 6 ,0,1,0);
@@ -40,6 +45,7 @@ class MyWings extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+        this.scene.rotate(this.rotationAngle, 0, 0, 1);
         this.scene.translate(2.5,1.4,0);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(-Math.PI/4,0,1,0);
@@ -50,6 +56,7 @@ class MyWings extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+        this.scene.rotate(-this.rotationAngle, 0, 0, 1);
         this.scene.translate(-2.5,1.4,0);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.rotate(5*Math.PI/4,0,1,0);

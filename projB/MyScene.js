@@ -167,42 +167,41 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
 
-    checkKeys(deltaTime) {
+    checkKeys() {
 		if (this.gui.isKeyPressed("KeyW")) {
-			this.bird.update("front", deltaTime);
+			this.bird.update("front");
 		}
 		if (this.gui.isKeyPressed("KeyS")) {
-            this.bird.update("back", deltaTime);
+            this.bird.update("back");
         }
         if (this.gui.isKeyPressed("KeyD")) {
-			this.bird.update("right", deltaTime);
+			this.bird.update("right");
         }
         if (this.gui.isKeyPressed("KeyA")) {
-			this.bird.update("left", deltaTime);
-		}
+			this.bird.update("left");
+        }
+        
         else if (this.gui.isKeyPressed("KeyR")) {
             console.log("r");
-            this.bird.update("restart",deltaTime);
+            this.bird.update("restart");
             
         }
 		else {
-			this.bird.update("none", deltaTime);
+			this.bird.update("none");
         } 
    
-
-
-        
     }
+
     update(t) {
-        let deltaTime = t - this.time;
         this.time = t;
-        this.checkKeys(deltaTime);
+        this.checkKeys();
 
         
         this.bird.animate(2*Math.PI* t/1000);
         
         
     }
+
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
