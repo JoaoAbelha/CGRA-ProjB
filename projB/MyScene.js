@@ -180,8 +180,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyA")) {
 			this.bird.update("left");
         }
-        
-        else if (this.gui.isKeyPressed("KeyR")) {
+        if (this.gui.isKeyPressed("KeyR")) {
             console.log("r");
             this.bird.update("restart");
             

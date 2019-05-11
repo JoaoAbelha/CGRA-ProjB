@@ -14,7 +14,8 @@ class MyInterface extends CGFinterface {
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
         this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
-        
+        this.gui.add(this.scene.bird, 'ScaleFactor', 0.1, 3).name('Bird Scale Factor');  
+        this.gui.add(this.scene.bird, 'SpeedFactor', 0.5, 3).name('Bird Speed Factor');     
         this.initKeys();
 
 

@@ -13,7 +13,6 @@ class MyBird extends CGFobject {
         this.coverts = new MySquare(scene);
         this.wings = new MyWings(scene, anguloY, v0, x, y, z);
         
-
         this.x = x;
         this.y = y;
         this.z = z;
@@ -25,9 +24,12 @@ class MyBird extends CGFobject {
         this.rotationSpeed = 0.05;
         this.flyAcceleration = 0.05;
         this.airResistence = 0.95;
+
+        this.ScaleFactor = 1;
+        this.SpeedFactor = 1;
         
-		
-        //this.saveInitialValues();
+        
+       this.saveInitialValues();	
     }
 
     saveInitialValues() {
@@ -66,6 +68,7 @@ class MyBird extends CGFobject {
         }
         else if (direction == "restart") {
             this.restoreInitialValues();
+            return;
         }
 
 		this.applyAirResistence();
@@ -83,6 +86,7 @@ class MyBird extends CGFobject {
         else {
             this.birdSpeed = Math.max(this.birdSpeed - this.flyAcceleration ,velocity);
         }
+        this.birdSpeed *= this.SpeedFactor;
     }
 
     turn(angle) {
@@ -97,7 +101,7 @@ class MyBird extends CGFobject {
         //console.log(this.y);
         this.scene.translate(this.x, 3 + this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
-        
+        this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);
     }
     
     animate(time) {
