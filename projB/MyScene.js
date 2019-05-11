@@ -42,6 +42,7 @@ class MyScene extends CGFscene {
         this.image = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this,0,0,0,3,0);
+        this.terrain = new MyTerrain(this);
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
@@ -227,14 +228,6 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         
-        // usar este valor no scale do cubeMap
-        const cube_side = 60; 
-        this.pushMatrix();
-        this.rotate(-0.5 * Math.PI, 1, 0, 0);
-        this.scale(cube_side, cube_side, 1);
-        this.plane.display();
-        this.popMatrix();
-        
         this.pushMatrix();
         this.image.display();
         this.popMatrix();
@@ -245,6 +238,8 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.bird.display();
         this.popMatrix();
+
+        this.terrain.display();
 
         // ---- END Primitive drawing section
     }
