@@ -16,6 +16,10 @@ class MyWings extends CGFobject {
         this.z = z;
     }
 
+    animate(time) {
+        this.y = Math.sin(time) + 50;
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.translate(1,0.5,0);

@@ -171,10 +171,10 @@ class MyScene extends CGFscene {
 		if (this.gui.isKeyPressed("KeyW")) {
 			this.bird.update("front", deltaTime);
 		}
-		else if (this.gui.isKeyPressed("KeyS")) {
+		if (this.gui.isKeyPressed("KeyS")) {
             this.bird.update("back", deltaTime);
         }
-        else if (this.gui.isKeyPressed("KeyD")) {
+        if (this.gui.isKeyPressed("KeyD")) {
 			this.bird.update("right", deltaTime);
         }
         if (this.gui.isKeyPressed("KeyA")) {

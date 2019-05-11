@@ -71,9 +71,6 @@ class MyBird extends CGFobject {
 			this.applyAirResistence();
         }
         
-
-		//this.directionAngle += 
-
 		this.z += this.birdSpeed * deltaTime * Math.cos(this.directionAngle);
 		this.x += this.birdSpeed * deltaTime * Math.sin(this.directionAngle);
 
@@ -105,6 +102,7 @@ class MyBird extends CGFobject {
     
     animate(time) {
         this.y = Math.sin(time);
+        this.wings.animate(time * 50);
     }
 
     display() {
