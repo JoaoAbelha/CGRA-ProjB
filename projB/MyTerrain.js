@@ -11,31 +11,35 @@ class MyTerrain extends CGFobject {
         
         this.terrainTex = new CGFtexture(this.scene, "images/terrain.jpg");
         this.terrainMap = new CGFtexture(this.scene, "images/heightmap.jpg");
+        this.terrainGrad = new CGFtexture(this.scene, "images/altimetry.png");
         
         this.appearance.setTexture(this.terrainTex);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.shader = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-        this.shader.setUniformsValues({ terrainTex : 2, terrainMap : 1, timeFactor : 0});
+        this.shader.setUniformsValues({ terrainTex : 2, terrainMap : 1, terrainGrad : 0});
 
         // shader code panels references
 		this.shadersDiv = document.getElementById("shaders");
 		this.vShaderDiv = document.getElementById("vshader");
 		this.fShaderDiv = document.getElementById("fshader");
 
-		// set the scene update period 
-		// (to invoke the update() method every 50ms or as close as possible to that )
+		
     }
 
     display() {
         this.scene.pushMatrix()
         this.appearance.apply();
         this.scene.setActiveShader(this.shader);
-        this.terrainTex.bind(2);
+        this.terrainGrad.bind(0);        
         this.terrainMap.bind(1);
+        this.terrainTex.bind(2);
+
         
+        //estas duas linhas não estão a dar e nem sei bem o que fazem honestamente
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_WRAP_S, this.scene.gl.REPEAT);
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_WRAP_T, this.scene.gl.REPEAT);
+
         this.scene.scale(60, 0, 60);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.plane.display();
