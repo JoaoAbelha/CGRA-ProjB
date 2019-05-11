@@ -22,6 +22,7 @@ class MyBird extends CGFobject {
 
         this.Vmax = 0.01;
         this.Vmin = -0.01;
+        this.rotationSpeed = 0.05;
         this.flyAcceleration = 8E-5;
         this.airResistence = 0.9;
         
@@ -57,6 +58,12 @@ class MyBird extends CGFobject {
 		else if (direction == "back") {
 			this.accelerate(this.Vmin,deltaTime);
         }
+        else if (direction == "right") {
+			this.turn(-this.rotationSpeed);
+        }
+        else if (direction == "left") {
+			this.turn(this.rotationSpeed);
+        }
         else if (direction == "restart") {
             this.restoreInitialValues();
         }
@@ -79,6 +86,10 @@ class MyBird extends CGFobject {
         else {
             this.birdSpeed = Math.max(this.birdSpeed - this.flyAcceleration * deltaTime, velocity);
         }
+    }
+
+    turn(angle) {
+        this.directionAngle += angle;
     }
 
     applyAirResistence() {
