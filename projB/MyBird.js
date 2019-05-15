@@ -20,7 +20,7 @@ class MyBird extends CGFobject {
         this.directionAngle = anguloY;
 
         this.Vmax = 0.5
-        this.Vmin = -0.5;
+        this.Vmin = 0;
         this.rotationSpeed = 0.05;
         this.flyAcceleration = 0.05;
         this.airResistence = 0.95;
@@ -37,7 +37,7 @@ class MyBird extends CGFobject {
         this.x0 = this.x;
         this.y0=this.y;
         this.z0=this.z;
-        this.angInitial = this.anguloY;
+        this.angInitial = this.directionAngle;
     }
 
     restoreInitialValues() {
@@ -49,52 +49,35 @@ class MyBird extends CGFobject {
     }
     
     applyAirResistence() {
-        this.birdSpeed -= this.birdSpeed * (1 - this.airResistence);
+        this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
 	}
 
-    update(direction) {
+    update(t) {
 
-		if (direction == "front") {
-			this.accelerate(this.Vmax);
-		}
-		else if (direction == "back") {
-			this.accelerate(this.Vmin);
-        }
-        else if (direction == "right") {
-			this.turn(-this.rotationSpeed);
-        }
-        else if (direction == "left") {
-			this.turn(this.rotationSpeed);
-        }
-        else if (direction == "restart") {
-            this.restoreInitialValues();
-            return;
-        }
-
-		this.applyAirResistence();
-
-        
+        this.y = Math.sin((2*Math.PI* t/1000));
 		this.z += this.birdSpeed * Math.cos(this.directionAngle);
-		this.x += this.birdSpeed * Math.sin(this.directionAngle);
-
+        this.x += this.birdSpeed * Math.sin(this.directionAngle);
+        this.wings.animate((2*Math.PI* t/1000), this.birdSpeed);  
+        this.applyAirResistence();
     }
 
     accelerate(velocity) {
-        if (velocity > 0) {
-            this.birdSpeed = Math.min(this.birdSpeed + this.flyAcceleration ,velocity);
+        let deltaSpeed = velocity * this.flyAcceleration;
+        
+        if (deltaSpeed > 0) {
+            this.birdSpeed = Math.min(this.Vmax, this.birdSpeed + deltaSpeed);
         }
         else {
-            this.birdSpeed = Math.max(this.birdSpeed - this.flyAcceleration ,velocity);
+            this.birdSpeed = Math.max(this.Vmin, this.birdSpeed + deltaSpeed);
         }
+
+        this.birdSpeed = (Math.round(Math.abs(birdSpeed)*10) / 10);
         this.birdSpeed *= this.SpeedFactor;
+        
     }
 
     turn(angle) {
-        this.directionAngle += angle;
-    }
-
-    applyAirResistence() {
-		this.birdSpeed -= this.birdSpeed  - this.birdSpeed*this.airResistence;
+        this.directionAngle += angle * this.rotationSpeed;
     }
 
     moveBird() {
@@ -102,11 +85,6 @@ class MyBird extends CGFobject {
         this.scene.translate(this.x, 10+ this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
         this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);
-    }
-    
-    animate(time) {
-        this.y = Math.sin(time);
-        this.wings.animate(time, this.birdSpeed);
     }
 
     display() {
