@@ -14,7 +14,5 @@ void main() {
 
     vTextureCoord = aTextureCoord;
     vec4 filter = texture2D(terrainMap, vTextureCoord);
-  
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-    gl_Position.y += (filter.r + filter.g + filter.b) * 25.0;
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.x, aVertexPosition.y , aVertexPosition.z + filter.r * 0.3, 1.0);
 }

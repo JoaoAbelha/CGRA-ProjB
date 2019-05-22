@@ -171,9 +171,11 @@ class MyScene extends CGFscene {
 
     checkKeys() {
 		if (this.gui.isKeyPressed("KeyW")) {
+            console.log("ACCELERATE\n");
 			this.bird.accelerate(1);
 		}
 		if (this.gui.isKeyPressed("KeyS")) {
+            console.log("STOP\n");
 			this.bird.accelerate(-1);
         }
         if (this.gui.isKeyPressed("KeyD")) {
@@ -182,10 +184,12 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyA")) {
 			this.bird.turn(1);
         }
+        if (this.gui.isKeyPressed("KeyP")) {
+            this.bird.drop();
+        }
         if (this.gui.isKeyPressed("KeyR")) {
             console.log("r");
-            this.bird.update("restart");
-            
+            this.bird.update("restart");   
         }
 		else {
 			this.bird.update("none");
@@ -196,10 +200,7 @@ class MyScene extends CGFscene {
     update(t) {
         this.time = t;
         this.checkKeys();
-        this.bird.update(t);
-
-        
-        
+        this.bird.update(t);     
     }
 
     display() {

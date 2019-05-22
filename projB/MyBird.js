@@ -16,7 +16,7 @@ class MyBird extends CGFobject {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.birdSpeed =v0;
+        this.birdSpeed = v0;
         this.directionAngle = anguloY;
 
         this.Vmax = 0.5
@@ -28,8 +28,13 @@ class MyBird extends CGFobject {
         this.ScaleFactor = 1;
         this.SpeedFactor = 1;
         
+        this.state = 0;
+        //states:
+        //  0 - up in the air
+        //  1 - dropping
+        //  2 - flying upwards
         
-       this.saveInitialValues();	
+        this.saveInitialValues();	
     }
 
     saveInitialValues() {
@@ -38,6 +43,7 @@ class MyBird extends CGFobject {
         this.y0=this.y;
         this.z0=this.z;
         this.angInitial = this.directionAngle;
+        this.state = "stopped";
     }
 
     restoreInitialValues() {
@@ -53,8 +59,19 @@ class MyBird extends CGFobject {
 	}
 
     update(t) {
-
-        this.y = Math.sin((2*Math.PI* t/1000));
+        
+        if (this.state == 1) {
+            this.y -= 0.1;
+            if (this.y <= 0)
+                this.state = 2;
+        }
+        else if (this.state == 2) {
+            this.y += 0.1;
+            if (this.y >= 9.5)
+                this.state = 0;
+        }
+        else 
+            this.y = Math.sin((2*Math.PI* t/1000)) + 10;
 		this.z += this.birdSpeed * Math.cos(this.directionAngle);
         this.x += this.birdSpeed * Math.sin(this.directionAngle);
         this.wings.animate((2*Math.PI* t/1000), this.birdSpeed);  
@@ -71,7 +88,7 @@ class MyBird extends CGFobject {
             this.birdSpeed = Math.max(this.Vmin, this.birdSpeed + deltaSpeed);
         }
 
-        this.birdSpeed = (Math.round(Math.abs(birdSpeed)*10) / 10);
+        this.birdSpeed = (Math.round(Math.abs(this.birdSpeed)*10) / 10);
         this.birdSpeed *= this.SpeedFactor;
         
     }
@@ -80,9 +97,12 @@ class MyBird extends CGFobject {
         this.directionAngle += angle * this.rotationSpeed;
     }
 
+    drop() {
+        this.state = 1;
+    }
+
     moveBird() {
-        //console.log(this.y);
-        this.scene.translate(this.x, 10+ this.y, this.z);
+        this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
         this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);
     }
