@@ -45,6 +45,7 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this,0,0,0,0,0);
         this.terrain = new MyTerrain(this);
         this.sphere = new MySphere(this,4,4);
+        this.branch = new MyBranch(this,3,2);
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
@@ -233,11 +234,9 @@ class MyScene extends CGFscene {
 
     checkKeys() {
 		if (this.gui.isKeyPressed("KeyW")) {
-            console.log("ACCELERATE\n");
 			this.bird.accelerate(1);
 		}
 		if (this.gui.isKeyPressed("KeyS")) {
-            console.log("STOP\n");
 			this.bird.accelerate(-1);
         }
         if (this.gui.isKeyPressed("KeyD")) {
@@ -250,13 +249,8 @@ class MyScene extends CGFscene {
             this.bird.drop();
         }
         if (this.gui.isKeyPressed("KeyR")) {
-            console.log("r");
-            this.bird.update("restart");   
-        }
-		else {
-			this.bird.update("none");
-        } 
-   
+            this.bird.restoreInitialValues();   
+        }   
     }
 
     update(t) {
@@ -304,17 +298,15 @@ class MyScene extends CGFscene {
 
         this.terrain.display();
 
+        this.branch.display();
+
         // this.pushMatrix();
         // this.translate(0,5,0);
         // this.sphere.display();
         // this.popMatrix();
 
         this.lSystem.display();
-
-
-
-        
-
+    
         // ---- END Primitive drawing section
     }
 }

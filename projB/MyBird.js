@@ -40,10 +40,9 @@ class MyBird extends CGFobject {
     saveInitialValues() {
         this.initialbirdSpeed = this.birdSpeed;
         this.x0 = this.x;
-        this.y0=this.y;
-        this.z0=this.z;
+        this.y0 = this.y;
+        this.z0 = this.z;
         this.angInitial = this.directionAngle;
-        this.state = "stopped";
     }
 
     restoreInitialValues() {
@@ -52,49 +51,45 @@ class MyBird extends CGFobject {
         this.z = this.z0;
         this.birdSpeed =this.initialbirdSpeed;
         this.directionAngle = this.angInitial;
+        this.state = 0;
     }
     
     applyAirResistence() {
-        //this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
+        this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
 	}
 
     update(t) {
         
         if (this.state == 1) {
-            this.y -= 0.1;
-            if (this.y <= 0)
+            this.y -= 0.5;
+            if (this.y <= 0.5)
                 this.state = 2;
         }
         else if (this.state == 2) {
-            this.y += 0.1;
+            this.y += 0.5;
             if (this.y >= 9.5)
                 this.state = 0;
         }
-        else 
+        else
             this.y = Math.sin((2*Math.PI* t/1000)) + 10;
+
 		this.z += this.birdSpeed * this.SpeedFactor * Math.cos(this.directionAngle);
         this.x += this.birdSpeed * this.SpeedFactor * Math.sin(this.directionAngle);
         this.wings.animate((2*Math.PI* t/1000), this.birdSpeed);  
         this.applyAirResistence();
+        this.colision();
     }
 
     accelerate(velocity) {
         let deltaSpeed = velocity * this.flyAcceleration;
         
         if (deltaSpeed > 0) {
-            console.log("gaining speed");
             this.birdSpeed = Math.min(this.Vmax, this.birdSpeed + deltaSpeed);
         }
         else {
-            console.log("losing speed");
-            console.log(this.birdSpeed);
-            console.log(deltaSpeed)
+
             this.birdSpeed = Math.max(this.Vmin, this.birdSpeed + deltaSpeed);
         }
-
-        //this.birdSpeed *= this.SpeedFactor;
-        this.birdSpeed = (Math.round(Math.abs(this.birdSpeed)*10) / 10);
-        console.log(this.birdSpeed);
     }
 
     turn(angle) {
@@ -109,6 +104,11 @@ class MyBird extends CGFobject {
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
         this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);
+    }
+
+    colision() {
+        if (this.y < 0.5 && Math.abs(this.scene.branch.x -this.x) < 2 && Math.abs(this.scene.branch.z -this.z < 2)) 
+            console.log("colision boy");
     }
 
     display() {
