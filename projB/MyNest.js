@@ -6,6 +6,7 @@ class MyNest extends CGFobject {
         this.nestColor.setDiffuse(0.8, 0.8, 0.08);
         this.x = x;
         this.z = z;
+        this.branches = [];
     }
     display() {
         this.scene.pushMatrix();
@@ -14,6 +15,14 @@ class MyNest extends CGFobject {
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.nestColor.apply();
         this.square.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(this.x, 1, this.z);
+        for (let i = 0; i < this.branches.length; i++) {
+            this.scene.rotate(Math.PI / 4 * i, 0, 1, 0);
+            this.branches[i].display();
+        }
         this.scene.popMatrix();
     }
 }

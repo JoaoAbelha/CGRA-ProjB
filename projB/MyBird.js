@@ -111,10 +111,11 @@ class MyBird extends CGFobject {
     }
 
     colision() {
+        //ifs que verificam colisao devem ser alterados consoante o tamanho dos objetos em questao
         if (!this.grabbingBranch) {
             let branches = this.scene.branches;
             for (let i = 0; i < branches.length; i++) {
-                if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z < 2)) {
+                if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z) < 2) {
                     this.branch = branches[i];
                     this.branch.x = 0;
                     this.branch.z = 0;
@@ -122,6 +123,12 @@ class MyBird extends CGFobject {
                     this.grabbingBranch = 1;
                     break;
                 }
+            }
+        }
+        else {
+            if (this.y < 0.5 && Math.abs(this.x - this.scene.nest.x) < 2 && Math.abs(this.x - this.scene.nest.x) < 2 ) {
+                this.grabbingBranch = 0;
+                this.scene.nest.branches.push(this.branch);
             }
         }
     }
