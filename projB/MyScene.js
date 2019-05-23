@@ -28,6 +28,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
 
         this.intializeObjects();
+        this.intializeAxiomsAndRulesLightning();
 
         this.initializeDayCubeMapTextures();
         this.initializeHouseTextures();
@@ -49,6 +50,67 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.scaleFactor = 1;
         
+    }
+
+    intializeAxiomsAndRulesLightning() {
+        this.axiom ="X";
+        this.ruleX = "FF";
+        this.ruleY = "F[-X][X]F[-X]+FX";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 0.5;
+        this.lSystem = new MyLightning(this);
+
+        this.doGenerate = function() {
+            this.lSystem.generate(
+                this.axiom,
+                {
+                    "F":[this.ruleX],
+                    "X":[this.ruleY]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        this.doGenerate();
+    }
+
+    intializeAxiomsAndRulesTree() {
+
+        this.axiom = "X";
+        this.ruleF = "FF"; 
+        this.ruleX = "F[-X][X]F[-X]+FX";
+        this.ruleY = "F[-X][X]+X";
+        this.ruleZ = "F[+X]-X";
+        this.rules3D = ["F[/X][X]F[\\X]+X",
+                        "F[\\X][X]/X",
+                        "F[/X]\\X",
+                        "F[^X][X]F[&X]^X",
+                        "F[^X][X]&X",
+                        "F[&X]^X"    ];
+        this.angle = 30.0;
+        this.iterations = 4;
+        this.scaleFactor = 0.5;
+        this.lSystem = new MyLSPlant(this);
+         
+
+        this.doGenerate = function () {
+            this.lSystem.generate(
+                this.axiom,
+                {
+                    "F": [ this.ruleF ],
+                    "X": [ this.ruleX, this.ruleY, this.ruleZ ].concat(this.rules3D)
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        this.doGenerate();
+
     }
 
     initializeBirdTextures() {
@@ -241,10 +303,14 @@ class MyScene extends CGFscene {
 
         this.terrain.display();
 
-        this.pushMatrix();
-        this.translate(0,5,0);
-        this.sphere.display();
-        this.popMatrix();
+        // this.pushMatrix();
+        // this.translate(0,5,0);
+        // this.sphere.display();
+        // this.popMatrix();
+
+        this.lSystem.display();
+
+
 
         
 
