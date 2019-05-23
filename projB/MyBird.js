@@ -22,7 +22,7 @@ class MyBird extends CGFobject {
         this.Vmax = 0.5
         this.Vmin = 0;
         this.rotationSpeed = 0.05;
-        this.flyAcceleration = 0.05;
+        this.flyAcceleration = 0.1;
         this.airResistence = 0.95;
 
         this.ScaleFactor = 1;
@@ -55,7 +55,7 @@ class MyBird extends CGFobject {
     }
     
     applyAirResistence() {
-        this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
+        //this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
 	}
 
     update(t) {
@@ -72,8 +72,8 @@ class MyBird extends CGFobject {
         }
         else 
             this.y = Math.sin((2*Math.PI* t/1000)) + 10;
-		this.z += this.birdSpeed * Math.cos(this.directionAngle);
-        this.x += this.birdSpeed * Math.sin(this.directionAngle);
+		this.z += this.birdSpeed * this.SpeedFactor * Math.cos(this.directionAngle);
+        this.x += this.birdSpeed * this.SpeedFactor * Math.sin(this.directionAngle);
         this.wings.animate((2*Math.PI* t/1000), this.birdSpeed);  
         this.applyAirResistence();
     }
@@ -82,15 +82,19 @@ class MyBird extends CGFobject {
         let deltaSpeed = velocity * this.flyAcceleration;
         
         if (deltaSpeed > 0) {
+            console.log("gaining speed");
             this.birdSpeed = Math.min(this.Vmax, this.birdSpeed + deltaSpeed);
         }
         else {
+            console.log("losing speed");
+            console.log(this.birdSpeed);
+            console.log(deltaSpeed)
             this.birdSpeed = Math.max(this.Vmin, this.birdSpeed + deltaSpeed);
         }
 
+        //this.birdSpeed *= this.SpeedFactor;
         this.birdSpeed = (Math.round(Math.abs(this.birdSpeed)*10) / 10);
-        this.birdSpeed *= this.SpeedFactor;
-        
+        console.log(this.birdSpeed);
     }
 
     turn(angle) {
