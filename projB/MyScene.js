@@ -49,9 +49,11 @@ class MyScene extends CGFscene {
         this.branches = [];
         for (let i = 0; i < 5; i++) {
             let x = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
-            let y = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
-            this.branches.push(new MyBranch(this, x, y));
+            let z = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
+            this.branches.push(new MyBranch(this, x, z));
         }
+
+        this.nest = new MyNest(this, -3, -3);
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
@@ -307,6 +309,8 @@ class MyScene extends CGFscene {
         for (let i = 0; i < this.branches.length; i++) {
             this.branches[i].display();
         }
+
+        this.nest.display();
 
         // this.pushMatrix();
         // this.translate(0,5,0);

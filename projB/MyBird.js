@@ -31,6 +31,8 @@ class MyBird extends CGFobject {
         this.grabbingBranch = 0;
         
         this.state = 0;
+
+        this.branch = null;
         //states:
         //  0 - up in the air
         //  1 - dropping
@@ -109,12 +111,16 @@ class MyBird extends CGFobject {
     }
 
     colision() {
-        if (this.grabbingBranch == 0) {
+        if (!this.grabbingBranch) {
             let branches = this.scene.branches;
             for (let i = 0; i < branches.length; i++) {
                 if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z < 2)) {
-                    console.log("colision boy");
+                    this.branch = branches[i];
+                    this.branch.x = 0;
+                    this.branch.z = 0;
+                    branches.splice(i, 1);
                     this.grabbingBranch = 1;
+                    break;
                 }
             }
         }
@@ -169,6 +175,14 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
 
         this.wings.display();
+
+        if (this.grabbingBranch) {
+            this.scene.pushMatrix();
+            this.scene.translate(-1.3,0,2);
+            this.scene.rotate(Math.PI/2,0,1,0);
+            this.branch.display();
+            this.scene.popMatrix();
+        }
 
     }
     
