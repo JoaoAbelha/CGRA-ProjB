@@ -27,6 +27,8 @@ class MyBird extends CGFobject {
 
         this.ScaleFactor = 1;
         this.SpeedFactor = 1;
+
+        this.grabbingBranch = 0;
         
         this.state = 0;
         //states:
@@ -107,11 +109,14 @@ class MyBird extends CGFobject {
     }
 
     colision() {
-
-        let branches = this.scene.branches;
-        for (let i = 0; i < branches.length; i++) {
-            if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z < 2)) 
-                console.log("colision boy");
+        if (this.grabbingBranch == 0) {
+            let branches = this.scene.branches;
+            for (let i = 0; i < branches.length; i++) {
+                if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z < 2)) {
+                    console.log("colision boy");
+                    this.grabbingBranch = 1;
+                }
+            }
         }
     }
 
