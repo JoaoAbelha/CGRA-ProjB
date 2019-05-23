@@ -1,7 +1,7 @@
 class MyTerrain extends CGFobject {
     constructor (scene) {
         super(scene);
-        this.plane = new Plane(scene, 60);
+        this.plane = new Plane(scene, 256);
 
         this.appearance = new CGFappearance(this.scene);
 		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
@@ -40,7 +40,7 @@ class MyTerrain extends CGFobject {
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_WRAP_S, this.scene.gl.REPEAT);
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_WRAP_T, this.scene.gl.REPEAT);
 
-        this.scene.scale(60, 0, 60);
+        this.scene.scale(60, 60, 60);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
         this.plane.display();
         this.scene.popMatrix();
