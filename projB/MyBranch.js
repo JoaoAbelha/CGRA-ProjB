@@ -1,17 +1,18 @@
 class MyBranch extends CGFobject {
-    constructor(scene, x, z) {
+    constructor(scene, x, z, radius, height, texture) {
         super(scene);
         this.cylinder = new MyCylinder(scene, 8, 4, true, true);
-        this.branchColor = new CGFappearance(scene);
-        this.branchColor.setDiffuse(0.55, 0.27, 0.08);
+        this.radius = radius;
+        this.height = height;
         this.x = x;
         this.z = z;
+        this.texture = texture;
     }
     display() {
         this.scene.pushMatrix();
-        this.scene.translate(this.x, 1, this.z);
-        this.scene.scale(0.1, 0.1, 2.5);
-        this.branchColor.apply();
+        this.scene.translate(this.x, this.radius, this.z);
+        this.scene.scale(this.radius, this.radius, this.height);
+        this.texture.apply();
         this.cylinder.display();
         this.scene.popMatrix();
     }

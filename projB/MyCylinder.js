@@ -55,47 +55,43 @@ class MyCylinder extends CGFobject {
     this.normals = [];
     this.texCoords = [];
 
-    if (this.base || this.top) { 
-      this.addBaseCoords();
-    }
 
     var ang = 2 * Math.PI / this.slices;
 
     for (let j = 0; j <= this.stacks; j++) {
-      for (let i = 0; i < this.slices; i++) {
+      for (let i = 0; i <= this.slices; i++) {
         this.vertices.push(Math.cos(ang * i), Math.sin(ang * i), j * 1 / this.stacks);
         this.texCoords.push(i * 1 / this.slices, j * 1 / this.stacks);
         this.normals.push(Math.cos(ang * i), Math.sin(ang * i), 0);
       }
     }
 
-    if (this.top) {
-      this.addTopCoords();
-    }
+    var lastVertex = this.slices  * this.stacks + 1;
 
-    var lastVertex = this.slices * this.stacks;
-
-    for (let i = 1; i < lastVertex; i++) {
+    
+    for (let i = 0; i < lastVertex + 3; i++) {
       if ((i + 1) % this.slices == 0) {
-        this.indices.push(i, i + 1, i + this.slices);
-        this.indices.push(i, i + 1 - this.slices, i + 1);
+        this.indices.push(i, i + 1, i + this.slices + 1);
+        this.indices.push(i, i + 1 + this.slices, i + this.slices);
       }
       else {
         this.indices.push(i, i + 1, i + 1 + this.slices);
         this.indices.push(i, i + 1 + this.slices, i + this.slices);
       }
     }
+    
+    
+    if (this.top) {
+      this.drawTop(lastVertex + 3);
+      this.addTopCoords();
+    }
+    
+    
+    if (this.base) { 
+      this.addBaseCoords();
+      this.drawBase();
+    }  
 
-    if (this.base && !this.top) {
-      this.drawBase();
-    } 
-    else if (!this.base && this.top) {
-      this.drawTop(lastVertex);
-    }
-    else if (this.base && this.top) {
-      this.drawBase();
-      this.drawTop(lastVertex);
-    }
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

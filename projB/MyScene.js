@@ -25,16 +25,15 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
         this.setUpdatePeriod(1000/FPS);
 
+        //Initialize textures
+        this.initializeTextures();
+
         //Initialize scene objects
         this.intializeObjects();
         this.initializeLSystems();
 
         this.intializeAxiomsAndRulesLightning();
         this.intializeAxiomsAndRulesTree();
-
-        this.initializeDayCubeMapTextures();
-        this.initializeHouseTextures();
-        this.initializeBirdTextures();
 
         //Objects connected to MyInterface
     }
@@ -52,7 +51,9 @@ class MyScene extends CGFscene {
         for (let i = 0; i < 5; i++) {
             let x = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
             let z = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
-            this.branches.push(new MyBranch(this, x, z));
+            let radius = (Math.random() * (0.3 - (0.15)) + (0.15)).toFixed(2);
+            let height = (Math.random() * (3.0 - (1.0)) + (1.0)).toFixed(1);
+            this.branches.push(new MyBranch(this, x, z, radius, height, this.trunk));
         }
 
         this.nest = new MyNest(this, -3, -3);
@@ -61,6 +62,13 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.scaleFactor = 1;
         
+    }
+
+    initializeTextures() {
+        this.initializeDayCubeMapTextures();
+        this.initializeHouseTextures();
+        this.initializeBirdTextures();
+        this.initializeTreeTextures();
     }
 
     initializeLSystems() {
@@ -140,6 +148,7 @@ class MyScene extends CGFscene {
         this.eyeColor = new CGFappearance(this);
         this.eyeColor.setDiffuse(0.44,0.5,0.56);
     }
+
     initializeDayCubeMapTextures() {
         this.hillsBK = new CGFappearance(this);
         this.hillsBK.setAmbient(1, 1, 1, 1);
@@ -232,6 +241,24 @@ class MyScene extends CGFscene {
         this.window.setShininess(1.0);
         this.window.loadTexture('images/window.jpg');
         this.window.setTextureWrap('REPEAT', 'REPEAT');
+    }
+
+    initializeTreeTextures() {
+        this.trunk = new CGFappearance(this);
+        this.trunk.setAmbient(0.85, 0.8, 0.55, 1);
+        this.trunk.setDiffuse(0.85, 0.8, 0.55, 1);
+        this.trunk.setSpecular(0.01, 0.01, 0.01, 1);
+        this.trunk.setShininess(1.0);
+        this.trunk.loadTexture('images/trunk.jpg');
+        this.trunk.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.treetop = new CGFappearance(this);
+        this.treetop.setAmbient(0.55, 0.95, 0.55, 1);
+        this.treetop.setDiffuse(0.55, 0.95, 0.55, 1);
+        this.treetop.setSpecular(0.01, 0.01, 0.01, 1);
+        this.treetop.setShininess(1.0);
+        this.treetop.loadTexture('images/treetop.jpg');
+        this.treetop.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     initLights() {
