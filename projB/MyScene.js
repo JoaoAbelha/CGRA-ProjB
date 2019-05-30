@@ -26,9 +26,11 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(1000/FPS);
 
         //Initialize scene objects
-
         this.intializeObjects();
+        this.initializeLSystems();
+
         this.intializeAxiomsAndRulesLightning();
+        this.intializeAxiomsAndRulesTree();
 
         this.initializeDayCubeMapTextures();
         this.initializeHouseTextures();
@@ -61,17 +63,26 @@ class MyScene extends CGFscene {
         
     }
 
+    initializeLSystems() {
+        this.map = new Map();
+        this.map.set("Lightning", new MyLightning(this));
+        this.map.set("Trees", new MyLSPlant(this));
+
+    }
+
+
     intializeAxiomsAndRulesLightning() {
+
         this.axiom ="X";
         this.ruleX = "FF";
         this.ruleY = "F[-X][X]F[-X]+FX";
         this.angle = 25.0;
         this.iterations = 3;
         this.scaleFactor = 0.5;
-        this.lSystem = new MyLightning(this);
+       
 
         this.doGenerate = function() {
-            this.lSystem.generate(
+            this.map.get("Lightning").generate(
                 this.axiom,
                 {
                     "F":[this.ruleX],
@@ -102,11 +113,10 @@ class MyScene extends CGFscene {
         this.angle = 30.0;
         this.iterations = 4;
         this.scaleFactor = 0.5;
-        this.lSystem = new MyLSPlant(this);
          
 
         this.doGenerate = function () {
-            this.lSystem.generate(
+            this.map.get("Trees").generate(
                 this.axiom,
                 {
                     "F": [ this.ruleF ],
@@ -258,7 +268,10 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyR")) {
             this.bird.restoreInitialValues();   
-        }   
+        }
+        if (this.gui.isKeyPressed("KeyL")) {
+            this.map.get("Lightning").update();
+        }  
     }
 
     update(t) {
@@ -317,7 +330,8 @@ class MyScene extends CGFscene {
         // this.sphere.display();
         // this.popMatrix();
 
-        this.lSystem.display();
+        //this.map.get("Lightning").display();
+        //his.map.get("Trees").display();
     
         // ---- END Primitive drawing section
     }
