@@ -7,7 +7,10 @@
 class MyBird extends CGFobject {
     constructor(scene,anguloY, v0, x,y,z) {
         super(scene);
-        this.cubo = new MyUnitCubeQuad(scene);
+        this.frontBody = new MySphere(scene, 20, 20);
+        this.backBody = new MySphere(scene, 20, 20); 
+
+        this.cubo = new MySphere(scene, 20, 20);
         this.beak = new MyPyramid(scene,3,3,false);
         this.triangle = new MyTriangle(scene);
         this.coverts = new MySquare(scene);
@@ -138,9 +141,15 @@ class MyBird extends CGFobject {
 
         this.moveBird();
         this.scene.pushMatrix();
-        this.scene.scale(1.5,1.5,1.5);
         this.scene.feather.apply();
-        this.cubo.display();
+        this.frontBody.display();
+        this.scene.popMatrix();
+
+        this.moveBird();
+        this.scene.pushMatrix();
+        this.scene.scale(1,1,2);
+        this.scene.feather.apply();
+        this.backBody.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -166,6 +175,7 @@ class MyBird extends CGFobject {
         this.beak.display();
         this.scene.popMatrix();
 
+        /*
         this.scene.pushMatrix();
         this.scene.eyeColor.apply();
         this.scene.translate(0.6,1.5,1.5);
@@ -181,6 +191,7 @@ class MyBird extends CGFobject {
         this.cubo.display();
         this.scene.translate(-2,0,0);
         this.scene.popMatrix();
+        */
 
         this.wings.display();
 

@@ -45,7 +45,6 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.bird = new MyBird(this,0,0,0,0,0);
         this.terrain = new MyTerrain(this);
-        this.sphere = new MySphere(this,20,20);
 
         this.branches = [];
         for (let i = 0; i < 5; i++) {
@@ -355,11 +354,6 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.nest.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.translate(0,5,0);
-        this.sphere.display();
         this.popMatrix();
 
         this.map.get("Lightning").display();
