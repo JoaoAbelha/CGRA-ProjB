@@ -143,6 +143,8 @@ class MyScene extends CGFscene {
     initializeBirdTextures() {
         this.feather = new CGFappearance(this);
         this.feather.setDiffuse(0.1,0.8,1,1);
+        this.feather.loadTexture('images/sor_hills/feather.JPG');
+        this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         this.colorBeak = new CGFappearance(this);
         this.colorBeak.setDiffuse(0.83,0.7,0.2,1);
         this.eyeColor = new CGFappearance(this);
