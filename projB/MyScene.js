@@ -57,7 +57,7 @@ class MyScene extends CGFscene {
             this.branches.push(new MyBranch(this, x, z, rotation, radius, height, this.trunk));
         }
 
-        this.nest = new MyNest(this, -3, -3);
+        this.nest = new MyNest(this, -3, -3, this.trunk);
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
@@ -351,7 +351,9 @@ class MyScene extends CGFscene {
             this.branches[i].display();
         }
 
+        this.pushMatrix();
         this.nest.display();
+        this.popMatrix();
 
         // this.pushMatrix();
         // this.translate(0,5,0);

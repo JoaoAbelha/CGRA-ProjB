@@ -127,7 +127,7 @@ class MyBird extends CGFobject {
             }
         }
         else {
-            if (this.y < 0.5 && Math.abs(this.x - this.scene.nest.x) < 2 && Math.abs(this.x - this.scene.nest.x) < 2 ) {
+            if (this.y < 0.5 && Math.abs(this.x - this.scene.nest.x) < 2 && Math.abs(this.z - this.scene.nest.z) < 2 ) {
                 this.grabbingBranch = 0;
                 this.scene.nest.branches.push(this.branch);
             }
