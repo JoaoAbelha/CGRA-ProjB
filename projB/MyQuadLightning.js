@@ -2,9 +2,9 @@ class MyQuadLightning extends CGFobject {
     constructor(scene, scale) {
         super(scene);
         this.scale = scale;
-        this.quad = new MyQuad(scene);
+        this.quad = new MySquare(scene);
         this.quad1 = new CGFappearance(scene);
-        this.quad1.setDiffuse(1, 1, 0, 1);
+        this.quad1.setAmbient(0.9, 0.9, 0.9, 1);
 		
     }
     

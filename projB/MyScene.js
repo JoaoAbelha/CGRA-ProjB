@@ -370,8 +370,6 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.map.get("Lightning").display();
-        this.square= new MySquare(this);
-        this.square.display();
         //his.map.get("Trees").display();
         
     
