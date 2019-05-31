@@ -94,7 +94,7 @@ class MyScene extends CGFscene {
                 this.axiom,
                 {
                     "F":[this.ruleX],
-                    "X":[this.ruleY]
+                    "X":[this.ruleY,"F[-X][X]"]
                 },
                 this.angle,
                 this.iterations,
@@ -359,6 +359,8 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.map.get("Lightning").display();
+        this.square= new MySquare(this);
+        this.square.display();
         //his.map.get("Trees").display();
     
         // ---- END Primitive drawing section
