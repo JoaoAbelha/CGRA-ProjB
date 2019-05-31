@@ -19,10 +19,9 @@ class MyLightning extends MyLSystem {
         this.iterate();
         this.depth = 0 ;
         this.intialAnimationTime=t;
-        this.freq = 1000 / this.iterations;
       
-        
-        //console.log(this.freq);
+        this.xTranslation = (Math.random() * (25.0 - (-25.0)) + (-25.0)).toFixed(1);
+        this.zTranslation = (Math.random() * (25.0 - (-25.0)) + (-25.0)).toFixed(1);
         this.flag = true;
         
     }
@@ -43,6 +42,9 @@ class MyLightning extends MyLSystem {
 
     display() {
         this.scene.pushMatrix();
+
+        this.scene.translate(this.xTranslation, 60, this.zTranslation);
+        this.scene.rotate(Math.PI, 1, 0, 0);
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;

@@ -87,7 +87,7 @@ class MyScene extends CGFscene {
         this.ruleY = "F[-X][X]F[-X]+FX";
         this.angle = 25.0;
         this.iterations = 3;
-        this.scaleFactor = 0.5;
+        this.scaleFactor = 1.5;
        
 
         this.doGenerate = function() {
