@@ -29,10 +29,10 @@ class MyBird extends CGFobject {
         this.SpeedFactor = 1;
 
         this.grabbingBranch = 0;
+        this.branch = null;
+
         
         this.state = 0;
-
-        this.branch = null;
         //states:
         //  0 - up in the air
         //  1 - dropping
@@ -101,7 +101,8 @@ class MyBird extends CGFobject {
     }
 
     drop() {
-        this.state = 1;
+        if (this.state == 0)
+            this.state = 1;
     }
 
     moveBird() {
@@ -115,7 +116,7 @@ class MyBird extends CGFobject {
         if (!this.grabbingBranch) {
             let branches = this.scene.branches;
             for (let i = 0; i < branches.length; i++) {
-                if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2 && Math.abs(branches[i].z -this.z) < 2) {
+                if (this.y < 0.5 && Math.abs(branches[i].x -this.x) < 2.5 && Math.abs(branches[i].z - this.z) < 2.5) {
                     this.branch = branches[i];
                     this.branch.x = 0;
                     this.branch.z = 0;
@@ -185,8 +186,8 @@ class MyBird extends CGFobject {
 
         if (this.grabbingBranch) {
             this.scene.pushMatrix();
-            this.scene.translate(-1.3,0,2);
-            this.scene.rotate(Math.PI/2,0,1,0);
+            this.scene.translate(-1.3, 0, 2);
+            this.scene.rotate(-Math.PI * this.branch.rotation + Math.PI/2,0,1,0);
             this.branch.display();
             this.scene.popMatrix();
         }
