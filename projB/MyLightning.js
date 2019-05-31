@@ -36,6 +36,7 @@ class MyLightning extends MyLSystem {
             }
             else {
                 this.flag = false;
+                this.depth = 0;
             }
         }
     }
