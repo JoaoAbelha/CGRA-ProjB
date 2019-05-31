@@ -40,6 +40,8 @@ class MyScene extends CGFscene {
 
     intializeObjects() {
 
+        this.square = new MySquare(this);
+
         this.plane = new Plane(this, 32);
         this.image = new MyCubeMap(this);
         this.house = new MyHouse(this);
@@ -142,8 +144,10 @@ class MyScene extends CGFscene {
 
     initializeBirdTextures() {
         this.feather = new CGFappearance(this);
-        this.feather.setDiffuse(0.1,0.8,1,1);
-        this.feather.loadTexture('images/sor_hills/feather.JPG');
+        this.feather.setAmbient(1,1,1,1);
+        this.feather.setDiffuse(1,1,1,1);
+        this.feather.setDiffuse(0.2, 0.2, 0.2, 1);
+        this.feather.loadTexture('images/feather.jpg');
         this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         this.colorBeak = new CGFappearance(this);
         this.colorBeak.setDiffuse(0.83,0.7,0.2,1);
@@ -265,9 +269,11 @@ class MyScene extends CGFscene {
 
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setAmbient(0.5, 0.5, 0.5, 1.0);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
@@ -338,6 +344,11 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         
         this.pushMatrix();
+        this.feather.apply();
+        this.square.display();
+        this.popMatrix();
+        
+        this.pushMatrix();
         this.image.display();
         this.popMatrix();
 
@@ -360,6 +371,7 @@ class MyScene extends CGFscene {
 
         this.map.get("Lightning").display();
         //his.map.get("Trees").display();
+        
     
         // ---- END Primitive drawing section
     }

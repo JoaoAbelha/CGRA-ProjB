@@ -198,7 +198,9 @@ class MyBird extends CGFobject {
         this.triangle.display();
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
         this.wings.display();
+        this.scene.popMatrix();
 
         if (this.grabbingBranch) {
             this.scene.pushMatrix();

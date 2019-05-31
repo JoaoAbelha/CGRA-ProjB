@@ -18,7 +18,7 @@ class MyTriangle extends CGFobject{
 		];
 		this.indices = [
 			0, 1, 2,
-			3, 5, 4
+			2, 1, 0
 		];
 		this.normals = [
 			0, 0, 1,
@@ -27,6 +27,25 @@ class MyTriangle extends CGFobject{
 			0, 0, -1,
 			0, 0, -1,
 			0, 0, -1
+		];
+
+		/*
+		Texture coords (s,t)
+		+----------> s
+        |
+        |
+		|
+		v
+        t
+        */
+		this.texCoords = [
+			0, 1,
+			1, 1,
+			0.5, 0,
+			0, 1,
+			1, 1,
+			0.5, 0
+			
 		];
 
 
