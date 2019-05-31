@@ -136,7 +136,7 @@ class MyScene extends CGFscene {
             );
         }
 
-        this.doGenerate();
+        //this.doGenerate();
 
     }
 
@@ -297,14 +297,16 @@ class MyScene extends CGFscene {
             this.bird.restoreInitialValues();   
         }
         if (this.gui.isKeyPressed("KeyL")) {
-            this.map.get("Lightning").update();
+            this.map.get("Lightning").startAnimation(this.time);
+            //console.log("lll");
         }  
     }
 
     update(t) {
         this.time = t;
         this.checkKeys();
-        this.bird.update(t);     
+        this.bird.update(t);
+        this.map.get("Lightning").update(t);     
     }
 
     display() {

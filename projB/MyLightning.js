@@ -1,6 +1,7 @@
 class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
+        this.flag = false;
     }
 
     initGrammar() {
@@ -11,12 +12,28 @@ class MyLightning extends MyLSystem {
     };
 
     startAnimation(t) {
-        this.iterate();
+        //this.iterate();
+        this.depth = 0 ;
         this.intialAnimationTime=t;
+        this.freq = 1000 / this.iterations;
+      
+        
+        //console.log(this.freq);
+        this.flag = true;
+        
     }
 
-    update() {
-        this.display();
+    update(t) {
+        if (this.flag) {
+            this.deltatime = t - this.intialAnimationTime;
+            if (this.deltatime / this.freq  >= this.depth) {
+                this.display();
+                console.log(this.deltatime);
+                this.depth++;
+                if (this.depth > this.iterations)
+                    this.flag = false;
+            }
+        }
     }
 
     display() {
