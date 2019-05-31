@@ -12,7 +12,11 @@ class MyLightning extends MyLSystem {
     };
 
     startAnimation(t) {
-        //this.iterate();
+        if (this.flag == true)
+            return;
+
+        this.axiom = "X";
+        this.iterate();
         this.depth = 0 ;
         this.intialAnimationTime=t;
         this.freq = 1000 / this.iterations;
@@ -26,12 +30,12 @@ class MyLightning extends MyLSystem {
     update(t) {
         if (this.flag) {
             this.deltatime = t - this.intialAnimationTime;
-            if (this.deltatime / this.freq  >= this.depth) {
-                this.display();
+            if (this.deltatime < 1000) {
                 console.log(this.deltatime);
-                this.depth++;
-                if (this.depth > this.iterations)
-                    this.flag = false;
+                this.depth += 1000/this.axiom.length;
+            }
+            else {
+                this.flag = false;
             }
         }
     }
@@ -43,7 +47,7 @@ class MyLightning extends MyLSystem {
         var i;
 
         // percorre a cadeia de caracteres
-        for (i = 0; i < this.axiom.length; ++i) {
+        for (i = 0; i < this.depth; ++i) {
 
             // verifica se sao caracteres especiais
             switch (this.axiom[i]) {

@@ -33,7 +33,7 @@ class MyScene extends CGFscene {
         this.initializeLSystems();
 
         this.intializeAxiomsAndRulesLightning();
-        this.intializeAxiomsAndRulesTree();
+        //this.intializeAxiomsAndRulesTree();
 
         //Objects connected to MyInterface
     }
@@ -362,7 +362,7 @@ class MyScene extends CGFscene {
         // this.sphere.display();
         // this.popMatrix();
 
-        //this.map.get("Lightning").display();
+        this.map.get("Lightning").display();
         //his.map.get("Trees").display();
     
         // ---- END Primitive drawing section
