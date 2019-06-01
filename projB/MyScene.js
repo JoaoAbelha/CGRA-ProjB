@@ -33,14 +33,12 @@ class MyScene extends CGFscene {
         this.initializeLSystems();
 
         this.intializeAxiomsAndRulesLightning();
-        //this.intializeAxiomsAndRulesTree();
 
         //Objects connected to MyInterface
     }
 
     intializeObjects() {
 
-        this.square = new MySquare(this);
 
         this.plane = new Plane(this, 32);
         this.image = new MyCubeMap(this);
@@ -58,7 +56,10 @@ class MyScene extends CGFscene {
             this.branches.push(new MyBranch(this, x, z, rotation, radius, height, this.trunk));
         }
 
-        this.nest = new MyNest(this, -3, -3, this.trunk);
+        this.nest = new MyNest(this, -7, 7, this.trunk);
+
+        this.treesGroup = new MyTreeGroupPatch(this);
+
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
@@ -76,8 +77,6 @@ class MyScene extends CGFscene {
     initializeLSystems() {
         this.map = new Map();
         this.map.set("Lightning", new MyLightning(this));
-        this.map.set("Trees", new MyLSPlant(this));
-
     }
 
 
@@ -105,41 +104,6 @@ class MyScene extends CGFscene {
         }
 
         this.doGenerate();
-    }
-
-    intializeAxiomsAndRulesTree() {
-
-        this.axiom = "X";
-        this.ruleF = "FF"; 
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.ruleY = "F[-X][X]+X";
-        this.ruleZ = "F[+X]-X";
-        this.rules3D = ["F[/X][X]F[\\X]+X",
-                        "F[\\X][X]/X",
-                        "F[/X]\\X",
-                        "F[^X][X]F[&X]^X",
-                        "F[^X][X]&X",
-                        "F[&X]^X"    ];
-        this.angle = 30.0;
-        this.iterations = 4;
-        this.scaleFactor = 0.5;
-         
-
-        this.doGenerate = function () {
-            this.map.get("Trees").generate(
-                this.axiom,
-                {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX, this.ruleY, this.ruleZ ].concat(this.rules3D)
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-        }
-
-        //this.doGenerate();
-
     }
 
     initializeBirdTextures() {
@@ -280,9 +244,11 @@ class MyScene extends CGFscene {
         this.lights[0].update();
 
     }
+
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
     }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -311,7 +277,6 @@ class MyScene extends CGFscene {
         }
         if (this.gui.isKeyPressed("KeyL")) {
             this.map.get("Lightning").startAnimation(this.time);
-            //console.log("lll");
         }  
     }
 
@@ -348,35 +313,45 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         
+
+        //cube map
         this.pushMatrix();
-        this.feather.apply();
-        this.square.display();
-        this.popMatrix();
-        
-        this.pushMatrix();
-        this.image.display();
+        //this.image.display();
         this.popMatrix();
 
-        // this.pushMatrix();
-        // this.house.display();
-        // this.popMatrix();
+        //house
         this.pushMatrix();
-        this.bird.display();
+        this.translate(-5, 0, -8);
+        this.scale(0.6, 0.6, 0.6);
+        this.house.display();
         this.popMatrix();
 
+        //bird
+        this.pushMatrix();
+        //this.bird.display();
+        this.popMatrix();
+
+        //terrain
         this.terrain.display();
 
+        //branches
         for (let i = 0; i < this.branches.length; i++) {
             this.branches[i].display();
         }
 
+        //nest
         this.pushMatrix();
         this.nest.display();
         this.popMatrix();
 
-        // this.circle = new MyCircle(this,10,1);
-        // this.trunk.apply();
-        // this.circle.display();
+
+        //lightning
+        this.map.get("Lightning").display();
+
+
+        //trees
+        this.treesGroup.display();
+
 
         
     

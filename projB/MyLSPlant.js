@@ -5,8 +5,10 @@ class MyLSPlant extends MyLSystem {
 
     initGrammar() {
         this.grammar = {
-            "F": new MyBranch(this.scene),
+            "F": new MyTreeBranch(this.scene),
             "X": new MyLeaf(this.scene)
         };
     };
+
+    
 }
