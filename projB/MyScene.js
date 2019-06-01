@@ -146,13 +146,18 @@ class MyScene extends CGFscene {
         this.feather = new CGFappearance(this);
         this.feather.setAmbient(1,1,1,1);
         this.feather.setDiffuse(1,1,1,1);
-        this.feather.setDiffuse(0.2, 0.2, 0.2, 1);
         this.feather.loadTexture('images/feather.jpg');
         this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+
         this.colorBeak = new CGFappearance(this);
         this.colorBeak.setDiffuse(0.83,0.7,0.2,1);
+        
         this.eyeColor = new CGFappearance(this);
-        this.eyeColor.setDiffuse(0.44,0.5,0.56);
+        this.eyeColor.setAmbient(1,1,1,1);
+        this.eyeColor.setDiffuse(1,1,1,1);
+        this.eyeColor.loadTexture('images/iris.png');
+        this.eyeColor.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
 
     initializeDayCubeMapTextures() {

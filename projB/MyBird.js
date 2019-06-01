@@ -111,7 +111,7 @@ class MyBird extends CGFobject {
         this.quad.display();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
-        this.scene.scale(this.ScaleFactor - 0.5, this.ScaleFactor -  0.5, this.ScaleFactor - 0.5);
+        this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);
     }
 
     colision() {
@@ -141,6 +141,8 @@ class MyBird extends CGFobject {
 
         this.moveBird();
         
+        this.scene.pushMatrix();
+        this.scene.scale(this.ScaleFactor - 0.5, this.ScaleFactor - 0.5, this.ScaleFactor - 0.5);
         //front body
         this.scene.pushMatrix();
         this.scene.feather.apply();
@@ -200,10 +202,11 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.wings.display();
         this.scene.popMatrix();
+        this.scene.popMatrix();
 
         if (this.grabbingBranch) {
             this.scene.pushMatrix();
-            this.scene.translate(-1.3, 0, 2);
+            this.scene.translate(-0.7 * this.ScaleFactor, 0, 1.2 * this.ScaleFactor);
             this.scene.rotate(-Math.PI * this.branch.rotation + Math.PI/2,0,1,0);
             this.branch.display();
             this.scene.popMatrix();
