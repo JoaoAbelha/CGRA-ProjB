@@ -278,7 +278,7 @@ class MyScene extends CGFscene {
             this.bird.restoreInitialValues();   
         }
         if (this.gui.isKeyPressed("KeyL")) {
-            this.map.get("Lightning").startAnimation(this.time);
+            this.lightning.startAnimation(this.time);
         }  
     }
 
@@ -286,7 +286,7 @@ class MyScene extends CGFscene {
         this.time = t;
         this.checkKeys();
         this.bird.update(t);
-        this.map.get("Lightning").update(t);     
+        this.lightning.update(t); 
     }
 
     display() {
