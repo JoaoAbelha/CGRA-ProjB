@@ -314,11 +314,6 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
         
 
-        //cube map
-        this.pushMatrix();
-        //this.image.display();
-        this.popMatrix();
-
         //house
         this.pushMatrix();
         this.translate(-5, 0, -8);
@@ -345,13 +340,15 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
 
-        //lightning
-        this.map.get("Lightning").display();
-
-
         //trees
+        this.pushMatrix();
         this.treesGroup.display();
+        this.popMatrix();
 
+        //lightning
+        this.pushMatrix();
+        this.map.get("Lightning").display();
+        this.popMatrix();
 
         
     
