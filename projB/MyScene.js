@@ -46,8 +46,10 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this,0,0,0,0,0);
         this.terrain = new MyTerrain(this);
 
+        let numberOfBranches = 5;
+
         this.branches = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < numberOfBranches; i++) {
             let x = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
             let z = (Math.random() * (10.0 - (-10.0)) + (-10.0)).toFixed(1);
             let rotation = (Math.random() * (1.0 - (0.0)) + (0.0)).toFixed(1);
@@ -58,7 +60,8 @@ class MyScene extends CGFscene {
 
         this.nest = new MyNest(this, -7, 7, this.trunk);
 
-        this.treesGroup = new MyTreeGroupPatch(this);
+        this.treesGroup = new MyTreeGroupPatch(this,3,3);
+        this.treeGroup2 = new MyTreeGroupPatch(this,3,1);
 
 
         //Objects connected to MyInterface
@@ -75,8 +78,7 @@ class MyScene extends CGFscene {
     }
 
     initializeLSystems() {
-        this.map = new Map();
-        this.map.set("Lightning", new MyLightning(this));
+        this.lightning =  new MyLightning(this);
     }
 
 
@@ -91,7 +93,7 @@ class MyScene extends CGFscene {
        
 
         this.doGenerate = function() {
-            this.map.get("Lightning").generate(
+            this.lightning .generate(
                 this.axiom,
                 {
                     "F":[this.ruleX],
@@ -340,14 +342,16 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
 
-        //trees
-        this.pushMatrix();
-        this.treesGroup.display();
-        this.popMatrix();
+       //trees
+        // this.treesGroup.display();
+        // this.pushMatrix();
+        // this.translate(-15,5,-13);
+        // this.treeGroup2.display();
+        // this.popMatrix();
 
         //lightning
         this.pushMatrix();
-        this.map.get("Lightning").display();
+        this.lightning.display();
         this.popMatrix();
 
         
