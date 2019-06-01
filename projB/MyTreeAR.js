@@ -10,9 +10,10 @@ class MyTreeAR extends MyLSPlant {
 
         this.axiom = "X";
         this.ruleF = "FF"; 
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.ruleY = "F[-X][X]+X";
-        this.ruleZ = "F[+X]-X";
+        this.rulesX = [];
+        this.rulesX.push("F[-X][X]F[-X]+FX");
+        this.rulesX.push("F[-X][X]+X");
+        this.rulesX.push("F[+X]-X");
         this.rules3D = ["F[/X][X]F[\\X]+X",
                         "F[\\X][X]/X",
                         "F[/X]\\X",
@@ -30,7 +31,7 @@ class MyTreeAR extends MyLSPlant {
                 this.axiom,
                 {
                     "F": [ this.ruleF ],
-                    "X": [ this.ruleX, this.ruleY, this.ruleZ ].concat(this.rules3D)
+                    "X": this.rulesX.concat(this.rules3D)
                 },
                 this.angle,
                 this.iterations,

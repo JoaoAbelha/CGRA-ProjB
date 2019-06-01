@@ -60,8 +60,8 @@ class MyScene extends CGFscene {
 
         this.nest = new MyNest(this, -7, 7, this.trunk);
 
-        this.treesGroup = new MyTreeGroupPatch(this,3,3);
-        this.treeGroup2 = new MyTreeGroupPatch(this,3,1);
+        // this.treesGroup = new MyTreeGroupPatch(this,3,3);
+        // this.treeGroup2 = new MyTreeGroupPatch(this,3,1);
         let position = [2,5, -17,
                        -5,5,-17,
                         7,5,-17,
@@ -235,13 +235,16 @@ class MyScene extends CGFscene {
         this.trunk.loadTexture('images/trunk.jpg');
         this.trunk.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.treetop = new CGFappearance(this);
-        this.treetop.setAmbient(0.55, 0.95, 0.55, 1);
-        this.treetop.setDiffuse(0.55, 0.95, 0.55, 1);
-        this.treetop.setSpecular(0.01, 0.01, 0.01, 1);
-        this.treetop.setShininess(1.0);
-        this.treetop.loadTexture('images/treetop.jpg');
-        this.treetop.setTextureWrap('REPEAT', 'REPEAT');
+        this.colorLeaf = new CGFappearance(this);
+        this.colorLeaf.setAmbient(0.9,0.9,0.9,1);
+        this.colorLeaf.setDiffuse(0.9,0.9,0.9,1);
+        this.colorLeaf.setSpecular(0.9,0.9,0.9,1);
+        this.colorLeaf.setShininess(10.0);
+        this.colorLeaf.loadTexture('images/Leaf.jpg');
+        this.colorLeaf.setTextureWrap('REPEAT','REPEAT');
+        
+
+        
     }
 
     initLights() {
@@ -331,7 +334,7 @@ class MyScene extends CGFscene {
 
         //bird
         this.pushMatrix();
-        //this.bird.display();
+        this.bird.display();
         this.popMatrix();
 
         //terrain
@@ -349,11 +352,11 @@ class MyScene extends CGFscene {
 
 
        //trees
-        this.treesGroup.display();
-        this.pushMatrix();
-        this.translate(-15,5,-13);
-        this.treeGroup2.display();
-        this.popMatrix();
+        // this.treesGroup.display();
+        // this.pushMatrix();
+        // this.translate(-15,5,-13);
+        // this.treeGroup2.display();
+        // this.popMatrix();
 
         this.tree.display();
 

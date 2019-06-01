@@ -33,6 +33,7 @@ serialInclude(['../lib/CGF.js',
                 'MyCircle.js',
                 'MyTreeAR.js',
                 'MyTree.js',
+                'MyParallelogram.js',
                 
 
 
