@@ -34,7 +34,6 @@ class MyBird extends CGFobject {
         this.grabbingBranch = 0;
         this.branch = null;
 
-        
         this.state = 0;
         //states:
         //  0 - up in the air
@@ -52,7 +51,7 @@ class MyBird extends CGFobject {
         this.angInitial = this.directionAngle;
     }
 
-    restoreInitialValues() {
+    restoreInitialValues() { /*when R is triggered*/ 
         this.x = this.x0;
 		this.y = this.y0;
         this.z = this.z0;
@@ -61,12 +60,12 @@ class MyBird extends CGFobject {
         this.state = 0;
     }
     
-    applyAirResistence() {
+    applyAirResistence() { /*so it stops without using S*/
         this.birdSpeed = Math.max(this.Vmin, this.birdSpeed - 0.001);
 	}
 
     update(t) {
-        
+
         if (this.state == 1) {
             this.y -= 0.5;
             if (this.y <= 0.5)
@@ -78,8 +77,8 @@ class MyBird extends CGFobject {
                 this.state = 0;
         }
         else
-            this.y = Math.sin((2*Math.PI* t/1000)) + 10;
-
+            
+        this.y = Math.sin((2*Math.PI* t/1000)) + 10;
 		this.z += this.birdSpeed * this.SpeedFactor * Math.cos(this.directionAngle);
         this.x += this.birdSpeed * this.SpeedFactor * Math.sin(this.directionAngle);
         this.wings.animate((2*Math.PI* t/1000), this.birdSpeed);  

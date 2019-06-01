@@ -4,6 +4,7 @@ class MyNest extends CGFobject {
         this.square = new MyQuad(scene);
         this.nestColor = new CGFappearance(scene);
         this.nestColor.setDiffuse(0.8, 0.8, 0.08);
+        this.baseNest = new MyCircle(scene,8,1.5);
 
         this.straw = new MyCylinder(scene, 4, 4, true, true);
         this.x = x;
@@ -26,6 +27,15 @@ class MyNest extends CGFobject {
     display() {
 
         this.scene.translate(this.x, 0, this.z);
+
+        this.scene.pushMatrix();
+        this.scene.translate(0,0.1,0);
+        this.scene.rotate(-Math.PI/2,1,0,0);   
+        this.baseNest.display();
+        this.scene.popMatrix();
+
+
+
         
         for (let j = 0; j < 5; j++) {
             for (let i = 0; i < 12; i++) {

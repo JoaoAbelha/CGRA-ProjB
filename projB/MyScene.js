@@ -369,8 +369,10 @@ class MyScene extends CGFscene {
         this.nest.display();
         this.popMatrix();
 
-        this.map.get("Lightning").display();
-        //his.map.get("Trees").display();
+        // this.circle = new MyCircle(this,10,1);
+        // this.trunk.apply();
+        // this.circle.display();
+
         
     
         // ---- END Primitive drawing section
