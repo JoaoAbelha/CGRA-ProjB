@@ -27,7 +27,7 @@ class MyTreeGroupPatch extends CGFobject {
         this.trees = [];
 
         for (let j = 0; j < this.number; j++) {
-            let tree = new MyTree(this.scene);
+            let tree = new MyTreeAR(this.scene);
             tree.doGenerate();
             this.trees.push(tree);
         }

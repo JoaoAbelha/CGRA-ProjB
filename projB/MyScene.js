@@ -62,6 +62,12 @@ class MyScene extends CGFscene {
 
         this.treesGroup = new MyTreeGroupPatch(this,3,3);
         this.treeGroup2 = new MyTreeGroupPatch(this,3,1);
+        let position = [2,5, -17,
+                       -5,5,-17,
+                        7,5,-17,
+                        12,5,-13,
+                       -9,5,13]; /*x,y,z...*/ 
+        this.tree = new MyTree(this, position);
 
 
         //Objects connected to MyInterface
@@ -343,11 +349,13 @@ class MyScene extends CGFscene {
 
 
        //trees
-        // this.treesGroup.display();
-        // this.pushMatrix();
-        // this.translate(-15,5,-13);
-        // this.treeGroup2.display();
-        // this.popMatrix();
+        this.treesGroup.display();
+        this.pushMatrix();
+        this.translate(-15,5,-13);
+        this.treeGroup2.display();
+        this.popMatrix();
+
+        this.tree.display();
 
         //lightning
         this.pushMatrix();

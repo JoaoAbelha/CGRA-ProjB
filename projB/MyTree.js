@@ -1,47 +1,27 @@
-/*encapsulates the axiom and rules of a procedural modulation of a tree*/
-class MyTree extends MyLSPlant {
-    constructor(scene) {
+/**
+ * MyTreeGroupPatch
+ * @constructor
+ * @param scene - Reference to MyScene object
+ * @param trunkTexture - texture of the trunk
+ * @param treepTopTexture - texture of the tree top
+ */
+ /*posicao x,y,z respetivas das arvores em cena individuais*/ 
+class MyTree extends  CGFobject {
+    constructor(scene,position) {
         super(scene);
-        this.initializeAxiomsAndRulesTree();
 
+       this.number = position.length;
+       this.position = position;
+       this.tree = new MyTreeAR(this.scene);
+       this.tree.doGenerate();
     };
 
-    initializeAxiomsAndRulesTree() {
-
-        this.axiom = "X";
-        this.ruleF = "FF"; 
-        this.ruleX = "F[-X][X]F[-X]+FX";
-        this.ruleY = "F[-X][X]+X";
-        this.ruleZ = "F[+X]-X";
-        this.rules3D = ["F[/X][X]F[\\X]+X",
-                        "F[\\X][X]/X",
-                        "F[/X]\\X",
-                        "F[^X][X]F[&X]^X",
-                        "F[^X][X]&X",
-                        "F[&X]^X" ];
-        this.angle = 30.0;
-        this.iterations = 4;
-        this.scaleFactor = 0.5;
-         
-
-        this.doGenerate = function () {
-            this.lsplant = new MyLSPlant(this.scene);
-            this.lsplant.generate(
-                this.axiom,
-                {
-                    "F": [ this.ruleF ],
-                    "X": [ this.ruleX, this.ruleY, this.ruleZ ].concat(this.rules3D)
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-           
-        }
-    }
-
     display() {
-        this.lsplant.display();
-    }
-
+        for(let i=0; i < this.number; i= i+3) {
+            this.scene.pushMatrix();
+            this.scene.translate(this.position[i],this.position[i+1],this.position[i+2]);
+            this.tree.display();
+            this.scene.popMatrix();
+        }
+     };
 }
