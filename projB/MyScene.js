@@ -72,6 +72,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
+        this.displayAxis = true;
         this.scaleFactor = 1;
         
     }
@@ -275,10 +276,10 @@ class MyScene extends CGFscene {
 			this.bird.accelerate(-1);
         }
         if (this.gui.isKeyPressed("KeyD")) {
-			this.bird.turn(-1)
+			this.bird.turn(-2)
         }
         if (this.gui.isKeyPressed("KeyA")) {
-			this.bird.turn(1);
+			this.bird.turn(2);
         }
         if (this.gui.isKeyPressed("KeyP")) {
             this.bird.drop();
@@ -309,8 +310,9 @@ class MyScene extends CGFscene {
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 
-        // Draw axis
-        this.axis.display();
+         // Draw axis
+         if (this.displayAxis)
+            this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -351,6 +353,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
 
+
        //trees
         // this.treesGroup.display();
         // this.pushMatrix();
@@ -358,12 +361,23 @@ class MyScene extends CGFscene {
         // this.treeGroup2.display();
         // this.popMatrix();
 
+        //cubemap
+        this.pushMatrix();
+        this.image.display();
+        this.popMatrix();
+
+
+    
+
         this.tree.display();
 
         //lightning
         this.pushMatrix();
         this.lightning.display();
         this.popMatrix();
+
+        
+        
 
         
     

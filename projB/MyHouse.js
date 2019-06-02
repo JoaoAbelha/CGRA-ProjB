@@ -19,7 +19,7 @@ class MyHouse extends CGFobject {
     };
 
     displayDoor() {
-        const extraDeviation = 0.002; // the door must be a bit outside
+        const extraDeviation = 0.005; // the door must be a bit outside
         this.scene.pushMatrix()
         this.scene.scale(1.5, 3, 1);
         this.scene.translate(0, 0.5, this.houseLength / 2 + extraDeviation);
@@ -29,7 +29,7 @@ class MyHouse extends CGFobject {
     }
 
     displayWindows() {
-        const extraDeviation = 0.002; // the windows must be a bit outside
+        const extraDeviation = 0.005; // the windows must be a bit outside
         let ang = 0;
         const HALF_PI = Math.PI / 2;
 
