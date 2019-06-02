@@ -14,8 +14,6 @@ class MyBird extends CGFobject {
         this.coverts = new MySquare(scene);
         this.wings = new MyWings(scene, anguloY, v0, x, y, z);
 
-        this.quad = new MyQuad(scene);
-
         this.x = x;
         this.y = y;
         this.z = z;
@@ -127,7 +125,6 @@ class MyBird extends CGFobject {
     }
 
     moveBird() {
-        this.quad.display();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.directionAngle, 0, 1, 0);
         this.scene.scale(this.ScaleFactor, this.ScaleFactor, this.ScaleFactor);

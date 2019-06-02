@@ -2,7 +2,9 @@ class MyLightning extends MyLSystem {
     constructor(scene) {
         super(scene);
         this.flag = false;
+        this.intializeAxiomsAndRulesLightning();
     }
+
 
     initGrammar() {
         this.grammar = {
@@ -10,6 +12,32 @@ class MyLightning extends MyLSystem {
             "X": new MyQuadLightning(this.scene, 0.1)
         };
     };
+
+    intializeAxiomsAndRulesLightning() {
+
+        this.axiom ="X";
+        this.ruleX = "FF";
+        this.ruleY = "F[-X][X]F[-X]+FX";
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleFactor = 1.5;
+       
+
+        this.doGenerate = function() {
+            this.generate(
+                this.axiom,
+                {
+                    "F":[this.ruleX],
+                    "X":[this.ruleY,"F[-X][X]"]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleFactor
+            );
+        }
+
+        this.doGenerate();
+    }
 
     startAnimation(t) {
         if (this.flag == true)

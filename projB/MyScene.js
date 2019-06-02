@@ -30,17 +30,11 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.intializeObjects();
-        this.initializeLSystems();
 
-        this.intializeAxiomsAndRulesLightning();
-
-        //Objects connected to MyInterface
     }
 
     intializeObjects() {
 
-
-        this.plane = new Plane(this, 32);
         this.image = new MyCubeMap(this);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this,0,0,0,0,0);
@@ -72,6 +66,8 @@ class MyScene extends CGFscene {
         this.tree = new MyTree(this, position);
 
 
+        this.lightning =  new MyLightning(this);
+
         //Objects connected to MyInterface
         this.axis = new CGFaxis(this);
         this.displayAxis = true;
@@ -86,42 +82,11 @@ class MyScene extends CGFscene {
         this.initializeTreeTextures();
     }
 
-    initializeLSystems() {
-        this.lightning =  new MyLightning(this);
-    }
-
-
-    intializeAxiomsAndRulesLightning() {
-
-        this.axiom ="X";
-        this.ruleX = "FF";
-        this.ruleY = "F[-X][X]F[-X]+FX";
-        this.angle = 25.0;
-        this.iterations = 3;
-        this.scaleFactor = 1.5;
-       
-
-        this.doGenerate = function() {
-            this.lightning .generate(
-                this.axiom,
-                {
-                    "F":[this.ruleX],
-                    "X":[this.ruleY,"F[-X][X]"]
-                },
-                this.angle,
-                this.iterations,
-                this.scaleFactor
-            );
-        }
-
-        this.doGenerate();
-    }
-
     initializeBirdTextures() {
         this.feather = new CGFappearance(this);
         this.feather.setAmbient(1,1,1,1);
         this.feather.setDiffuse(1,1,1,1);
-        this.feather.loadTexture('images/feather2.jpg');
+        this.feather.loadTexture('images/feather.jpg');
         this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
 
@@ -361,11 +326,16 @@ class MyScene extends CGFscene {
 
 
        //trees
-       this.pushMatrix();
+        this.pushMatrix();
         this.treesGroup.display();
-        this.treesGroup2.display();
         this.translate(0, 0, 4);
         this.treesGroup3.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.treesGroup2.display();
+        this.translate(-15,5,-13);
+        this.popMatrix();
 
         //cubemap
         this.pushMatrix();
