@@ -60,8 +60,10 @@ class MyScene extends CGFscene {
 
         this.nest = new MyNest(this, -7, 7, this.trunk);
 
-        // this.treesGroup = new MyTreeGroupPatch(this,3,3);
-        // this.treeGroup2 = new MyTreeGroupPatch(this,3,1);
+        this.treesGroup = new MyTreeGroupPatch(this,3,3);
+        this.treesGroup2 = new MyTreeGroupPatch(this,3,1);
+        this.treesGroup3 = new MyTreeGroupPatch(this,3,3);
+
         let position = [2,5, -17,
                        -5,5,-17,
                         7,5,-17,
@@ -119,12 +121,16 @@ class MyScene extends CGFscene {
         this.feather = new CGFappearance(this);
         this.feather.setAmbient(1,1,1,1);
         this.feather.setDiffuse(1,1,1,1);
-        this.feather.loadTexture('images/feather.jpg');
+        this.feather.loadTexture('images/feather2.jpg');
         this.feather.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
 
         this.colorBeak = new CGFappearance(this);
+        this.colorBeak.setAmbient(0.83,0.7,0.2,1);
         this.colorBeak.setDiffuse(0.83,0.7,0.2,1);
+        this.colorBeak.loadTexture('images/beak.jpg');
+        this.colorBeak.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
         
         this.eyeColor = new CGFappearance(this);
         this.eyeColor.setAmbient(1,1,1,1);
@@ -355,11 +361,11 @@ class MyScene extends CGFscene {
 
 
        //trees
-        // this.treesGroup.display();
-        // this.pushMatrix();
-        // this.translate(-15,5,-13);
-        // this.treeGroup2.display();
-        // this.popMatrix();
+       this.pushMatrix();
+        this.treesGroup.display();
+        this.treesGroup2.display();
+        this.translate(0, 0, 4);
+        this.treesGroup3.display();
 
         //cubemap
         this.pushMatrix();
